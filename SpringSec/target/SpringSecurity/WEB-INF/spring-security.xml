@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+    <http auto-config="true">
+<!--        <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />-->
+        <intercept-url pattern="/user**" access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" />
+        <logout logout-url="/j_spring_security_logout"
+                logout-success-url="/logout" delete-cookies="JSESSIONID" />
+    </http>
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <user name="admin" password="{noop}123456" authorities="ROLE_ADMIN" />
+                <user name="user" password="{noop}123456" authorities="ROLE_USER" />
+            </user-service>
+            <!-- <user-service>
+              <user name="admin" password="$2a$12$gmFXC74IRBODfkGcWhVUGelfT7hb3yeObUe.swjwMhAuwqRwv6Ori" authorities="ROLE_ADMIN" />
+              <user name="user" password="$2a$12$gmFXC74IRBODfkGcWhVUGelfT7hb3yeObUe.swjwMhAuwqRwv6Ori" authorities="ROLE_USER" />
+            </user-service>
+            <password-encoder hash="bcrypt" /> -->
+
+
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>
